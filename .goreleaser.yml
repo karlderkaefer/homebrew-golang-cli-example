@@ -5,7 +5,8 @@ before:
   hooks:
     - go mod tidy
 builds:
-  - env:
+  - binary: genderize
+    env:
       - CGO_ENABLED=0
     goos:
       - linux
@@ -24,7 +25,7 @@ archives:
 checksum:
   name_template: "checksums.txt"
 snapshot:
-  name_template: "{{ incpatch .Version }}-next"
+  version_template: "{{ incpatch .Version }}-next"
 changelog:
   sort: asc
   filters:
