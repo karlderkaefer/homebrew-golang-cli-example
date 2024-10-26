@@ -74,10 +74,9 @@ jobs:
           image: ${{ steps.meta.outputs.tags }}
           sarif-file: sarif.output.json
           summary: true
-      # not evailable on my private repo
-      # - name: Upload SARIF result
-      #   id: upload-sarif
-      #   if: ${{ github.event_name != 'pull_request_target' }}
-      #   uses: github/codeql-action/upload-sarif@v3
-      #   with:
-      #     sarif_file: sarif.output.json
+      - name: Upload SARIF result
+        id: upload-sarif
+        if: ${{ (github.ref_name == 'main' || startsWith(github.ref, 'refs/tags/')) && github.repository_owner == 'karlderkaefer' }}
+        uses: github/codeql-action/upload-sarif@v3
+        with:
+          sarif_file: sarif.output.json
